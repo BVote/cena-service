@@ -35,38 +35,35 @@ module.exports = {
                     // TODO: write files in loop using promise 
                     // https://stackoverflow.com/questions/45040277/nodejs-write-multiple-files-in-for-loop
                     fs.writeFile(RSA_KEY_FILE_PATH, process.env.FLATTED_RSA_KEY, err => { 
-                        if (err) {
+                        if (err) { // RSA key files creation errors
                             console.log("RSA key file creation failed"); 
                             // console.error(err);
-                            return
                         }
                         // RSA.key writing success
                         // console.log("RSA.key written with success")
                     });
 
                     fs.writeFile(NE_KEY_FILE_PATH, process.env.FLATTED_NE_KEY, err => {
-                        if (err) {
+                        if (err) { // NE key files creation errors
                             console.log("NE key file creation failed");
                             // console.error(err)
-                            return
                         }
                         // NE.key writing success
                         // console.log("NE.key written with success");
                     });
 
-                    console.error(err)
-                    return "error";
+                    // console.error(err)
+                    // return "error";
                 } else { // NE_KEY_FILE_PATH exists
 
                     // load NE_KEY_FILE_PATH content into env under FLATTED_NE_KEY                
                     fs.readFile(NE_KEY_FILE_PATH, "utf8" , (err, data) => {
                         if (err) {
                             console.error(err)
-                            return
+                            // return
                         }
                         console.log(data)
                         process.env["FLATTED_NE_KEY"] = data;
-
                     })
                     return process.env.FLATTED_NE_KEY;
                 }
