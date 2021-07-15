@@ -19,16 +19,16 @@ module.exports = {
         if(!(process.env.FLATTED_NE_KEY || process.env.FLATTED_RSA_KEY)) { // No FLATTED_NE_KEY and FLATTED_RSA_KEY
             
             // create FLATTED_NE_KEY and FLATTED_RSA_KEY through NE_KEY_FILE_PATH and RSA_KEY_FILE_PATH
-            fs.access(NE_KEY_FILE_PATH, fs.F_OK, (err) => {
+            fs.access(NE_KEY_FILE_PATH, fs.F_OK, (err) => { // No Key files
                 if (err) {
                     console.log("No key files");
-                    // No key files : Gotta create them and load keys in process.env
+                    // Gotta create key files and load them in process.env
                     // TODO: write promise helper for blinding                   
                     const RSA_KEY = BlindSignature.keyGeneration({ b: 2048 });
                     const NE_KEY = RSA_KEY.keyPair;
 
                     
-                    // TODO: write promise for stringifying operation
+                    // TODO: write promise for stringifying operations
                     process.env["FLATTED_RSA_KEY"] = Flatted.stringify(RSA_KEY);
                     process.env["FLATTED_NE_KEY"] = Flatted.stringify(NE_KEY);
                     
